@@ -1,0 +1,111 @@
+<html>
+    <head>
+        <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-firestore.js"></script>
+ 
+<script>
+    
+    </script>
+    </head>
+<body>
+    <h1>dinosaur 1</h1> 
+
+    <p>welcome this is sethi website we have facts a qize i hope all of you have a good time</p>
+    <img src="raptor.jpg" />
+    
+    <ol id="raptorComment">
+        <li>raptors can run up to 60 miles per hour</li>
+
+    </ol>
+ 
+    <input id="raptorText" /><button id="raptorButton">comment</button>
+    
+    <p>Another word for raptor is dromasaur.</p>
+    <img src="triceratops.jpg" />
+    <ol id="triceratopsComment">
+       
+    </ol>
+    <input id="triceratopsText" /><button id="triceratopsButton">comment</button>
+    
+    <p>triceratops name meens three horn face</p>
+    <p>triceratops may have lived herds but </p>
+    <p>triceratops may have live in herds but triceratops skeloton have been seprate.</p>
+    <p><img src="rexi.jpg"></p>
+    
+    <input id="rexiText" /><button id="rexiButton">comment</button>
+    <ol id="rexiComment"></ol>
+    
+    <p>t rex is one of the best know dinosaurs t rex can run up to 10 miles per hour
+    <p>his eyes are are strait not like the allosaurus.</p>
+    </p>
+    <div data-tf-widget="DrJbMq1z" data-tf-opacity="100" data-tf-iframe-props="title=Dinosaur Quiz" data-tf-transitive-search-params data-tf-medium="snippet" style="width:100%;height:500px;"></div><script src="https://embed.typeform.com/next/embed.js"></script>
+    
+    
+    <script  type="module">
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyD4Vg2uM-kDeMC16zW-hyrRXo2sSmDDDik",
+      authDomain: "dinosaur-1-9ce72.firebaseapp.com",
+      projectId: "dinosaur-1-9ce72",
+      storageBucket: "dinosaur-1-9ce72.appspot.com",
+      messagingSenderId: "23142247354",
+      appId: "1:23142247354:web:a8ed92402869ebe3e9cb83",
+      measurementId: "G-M3WDVC4252"
+    };
+
+ 
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Initialize Firestore
+        const db = firebase.firestore();
+        console.log(db);
+  
+        db.collection("dino").where("dino", "==", "raptor")
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                AddFact(doc.data().dino,  doc.data().comment);
+
+        });
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+
+    document.getElementById('raptorButton').onclick = function(){    save("raptor");}
+    document.getElementById('triceratopsButton').onclick = function(){    save("triceratops");}
+    document.getElementById('rexiButton').onclick = function(){    save("rexi");}
+
+     
+ 
+      function save(dinoType) {
+
+        db.collection("dino").add({ 'dino' : dinoType, 'comment' : document.getElementById(dinoType+"Text").value});
+        AddFact(dinoType, document.getElementById(dinoType + "Text").value);
+        document.getElementById(dinoType + "Text").value='';
+    }
+
+   export  function AddFact(dinoType, comment) {
+        var raptors = document.getElementById(dinoType + 'Comment');
+        var newLI = document.createElement('li');
+    var element = newLI.appendChild(document.createTextNode(comment));
+
+    raptors.appendChild(newLI);
+             
+            // doc.data() is never undefined for query doc snapshots
+            //console.log(doc.id, " => ", doc.data());
+    }
+    </script>
+
+</body>
+</html>
